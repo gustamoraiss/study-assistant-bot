@@ -8,3 +8,7 @@ def carregar_provas():
             return dados
     else:
         return []
+
+def salvar_provas(lista_provas):
+    with open ('provas.json', 'w') as arquivo:
+        json.dump(lista_provas, arquivo, indent=4)
