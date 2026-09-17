@@ -38,6 +38,7 @@ async def add(update, context):
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler('start', start))
+    app.add_handler(CommandHandler('add', add))
     app.run_polling()
 
 if __name__ == '__main__':
