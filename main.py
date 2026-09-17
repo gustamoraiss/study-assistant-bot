@@ -17,7 +17,7 @@ async def add(update, context):
         return
 
     data_texto = context.args[0]
-    descricao = context.args[1:]
+    descricao = " ".join(context.args[1:])
 
     data_valida = validar_e_formatar_data(data_texto)
     if not data_valida:
