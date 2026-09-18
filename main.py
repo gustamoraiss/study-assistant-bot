@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 from gerenciador_dados import carregar_provas, salvar_provas, validar_e_formatar_data
+from datetime import datetime
 
 load_dotenv()
 
@@ -35,10 +36,26 @@ async def add(update, context):
 
     await update.message.reply_text(f'✅ Prova cadastrada com sucesso para {data_texto}!')
 
+async def provas(update, context):
+    provas = carregar_provas()
+    if not provas:
+        return await update.message.reply_text('Você não tem nenhuma prova cadastrada no momento.')
+    
+    provas_ordenadas = sorted(provas, key=lambda p: p['data'])
+    mensagem = '📚 Suas Provas Cadastradas:\n\n'
+
+    for i, prova in enumerate(provas_ordenadas, 1):
+        data_valida = datetime.strptime(prova['data'], "%Y-%m-%d")
+        data_exibicao = data_valida.strftime('%d-%m-%Y')
+        mensagem += f"{i}. 📅 {data_exibicao} - {prova['descricao']}\n"
+
+    await update.message.reply_text(mensagem)
+
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler('start', start))
     app.add_handler(CommandHandler('add', add))
+    app.add_handler(CommandHandler('provas', provas))
     app.run_polling()
 
 if __name__ == '__main__':
