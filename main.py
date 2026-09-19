@@ -51,6 +51,26 @@ async def provas(update, context):
 
     await update.message.reply_text(mensagem)
 
+async def concluir(update, context):
+    provas = carregar_provas()
+
+    if (context.args and not context.args[0].isdigit()) or not context.args:
+        return await update.message.reply_text("Você deve digitar o número da prova a ser removida (ex: /concluir 1). Para consultar, digite o camando /provas.")
+    
+    elif not provas:
+        return await update.message.reply_text("Você não tem nenhuma prova para concluir.")
+
+    elif context.args and context.args[0].isdigit():
+        numero = int(context.args[0])
+        provas_ordenadas = sorted(provas, key=lambda p: p['data'])
+        if numero >= 1 and numero <= len(provas_ordenadas):
+            prova_removida = provas_ordenadas[numero - 1]
+            provas_ordenadas.pop(numero - 1)
+            salvar_provas(provas_ordenadas)
+            return await update.message.reply_text(f"✅ Prova '{prova_removida['descricao']}' concluída com sucesso!")
+        else:
+            return await update.message.reply_text(f"Número inválido! Escolha um número entre 1 e {len(provas_ordenadas)}.")
+
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler('start', start))
