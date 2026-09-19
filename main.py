@@ -10,7 +10,7 @@ load_dotenv()
 TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 async def start(update, context):
-    await update.message.reply_text('Hello, World!')
+    await update.message.reply_text('Seja bem-vindo(a) ao Bot Assistent de estudos! Algum compromisso à adicionar?')
 
 async def add(update, context):
     if not context.args or len(context.args) < 2:
