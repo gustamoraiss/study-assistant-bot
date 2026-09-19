@@ -14,7 +14,7 @@ async def start(update, context):
 
 async def add(update, context):
     if not context.args or len(context.args) < 2:
-        await update.message.reply_text('Uso incorreto. Digite no formatdo: /add DD/MM/AAAA Nome da Matéria - Descrição')
+        await update.message.reply_text('Uso incorreto. Digite no formato: /add DD/MM/AAAA Nome da Matéria - Descrição')
         return
 
     data_texto = context.args[0]
@@ -46,7 +46,7 @@ async def provas(update, context):
 
     for i, prova in enumerate(provas_ordenadas, 1):
         data_valida = datetime.strptime(prova['data'], "%Y-%m-%d")
-        data_exibicao = data_valida.strftime('%d-%m-%Y')
+        data_exibicao = data_valida.strftime('%d/%m/%Y')
         mensagem += f"{i}. 📅 {data_exibicao} - {prova['descricao']}\n"
 
     await update.message.reply_text(mensagem)
@@ -55,7 +55,7 @@ async def concluir(update, context):
     provas = carregar_provas()
 
     if (context.args and not context.args[0].isdigit()) or not context.args:
-        return await update.message.reply_text("Você deve digitar o número da prova a ser removida (ex: /concluir 1). Para consultar, digite o camando /provas.")
+        return await update.message.reply_text("Você deve digitar o número da prova a ser removida (ex: /concluir 1). Para consultar, digite o comando /provas.")
     
     elif not provas:
         return await update.message.reply_text("Você não tem nenhuma prova para concluir.")
