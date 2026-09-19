@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
-from telegram import Update
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.ext import Application, CommandHandler
 from gerenciador_dados import carregar_provas, salvar_provas, validar_e_formatar_data
 from datetime import datetime
 
