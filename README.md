@@ -2,6 +2,9 @@
 
 Um bot para gerenciamento de avaliações e prazos acadêmicos desenvolvido em Python, focado em organização e controle de datas de provas de forma prática diretamente pelo Telegram.
 
+<img width="573" height="583" alt="image" src="https://github.com/user-attachments/assets/b041321a-d77f-48f4-9a9b-775320c2699b" />
+
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
